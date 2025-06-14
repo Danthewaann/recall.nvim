@@ -19,7 +19,7 @@ M.extension = function(opts)
   local function display_entry(entry)
     return entry_layout({
       { config.opts.sign, config.opts.sign_highlight },
-      entry.value.info.file,
+      vim.fn.fnamemodify(entry.value.info.file, ":p:."),
     })
   end
 
