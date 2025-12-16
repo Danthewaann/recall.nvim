@@ -17,9 +17,10 @@ M.extension = function(opts)
   })
 
   local function display_entry(entry)
+    local _, lnum, _ = unpack(entry.value.info.pos)
     return entry_layout({
       { config.opts.sign, config.opts.sign_highlight },
-      entry.value.char .. ":" .. entry.value.info.file .. ":" .. entry.value.info.pos[2]
+      entry.value.char .. ":" .. entry.value.info.file .. ":" .. lnum
     })
   end
 
@@ -28,12 +29,13 @@ M.extension = function(opts)
     return telescope_finders.new_table({
       results = marks,
       entry_maker = function(entry)
+        local _, lnum, col = unpack(entry.info.pos)
         return {
           value = entry,
           display = display_entry,
-          ordinal = entry.char .. ":" .. entry.info.file .. ":" .. entry.info.pos[2],
-          lnum = entry.info.pos[2],
-          col = entry.info.pos[3] - 1,
+          ordinal = entry.char .. ":" .. entry.info.file .. ":" .. lnum,
+          lnum = lnum,
+          col = col - 1,
           filename = entry.info.file,
         }
       end,
