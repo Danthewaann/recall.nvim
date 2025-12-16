@@ -19,7 +19,7 @@ M.extension = function(opts)
   local function display_entry(entry)
     return entry_layout({
       { config.opts.sign, config.opts.sign_highlight },
-      entry.value.info.file,
+      entry.value.char .. ":" .. entry.value.info.file .. ":" .. entry.value.info.pos[2]
     })
   end
 
@@ -31,7 +31,7 @@ M.extension = function(opts)
         return {
           value = entry,
           display = display_entry,
-          ordinal = entry.char,
+          ordinal = entry.char .. ":" .. entry.info.file .. ":" .. entry.info.pos[2],
           lnum = entry.info.pos[2],
           col = entry.info.pos[3] - 1,
           filename = entry.info.file,
