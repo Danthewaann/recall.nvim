@@ -47,6 +47,7 @@ describe("Recall", function()
   local bufnr
   local line_count = 100
   local temp_paths = {}
+  local cwd = vim.fn.getcwd()
 
   before_each(function()
     local telescope = require("telescope")
@@ -78,6 +79,7 @@ describe("Recall", function()
     end
 
     temp_paths = {}
+    vim.api.nvim_set_current_dir(cwd)
   end)
 
   it("can toggle marks and show/hide signs", function()
