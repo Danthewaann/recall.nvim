@@ -20,7 +20,7 @@ M.extension = function(opts)
     local _, lnum, _ = unpack(entry.value.info.pos)
     return entry_layout({
       { config.opts.sign, config.opts.sign_highlight },
-      entry.value.char .. ":" .. entry.value.info.file .. ":" .. lnum,
+      entry.value.char .. ":" .. vim.fn.fnamemodify(entry.value.info.file, ":.")  .. ":" .. lnum,
     })
   end
 
@@ -33,7 +33,7 @@ M.extension = function(opts)
         return {
           value = entry,
           display = display_entry,
-          ordinal = entry.char .. ":" .. entry.info.file .. ":" .. lnum,
+          ordinal = entry.char .. ":" .. vim.fn.fnamemodify(entry.info.file, ":.") .. ":" .. lnum,
           lnum = lnum,
           col = col - 1,
           filename = entry.info.file,

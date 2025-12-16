@@ -180,5 +180,26 @@ describe("Recall", function()
     assert.are.equal(results[3].ordinal, "C:" .. temp_paths[1] .. ":20")
     assert.are.equal(results[3].lnum, 20)
     assert.are.equal(results[3].col, 0)
+
+    -- Switch to the temp dir to test relative filenames
+    vim.api.nvim_set_current_dir(vim.fs.dirname(temp_paths[1]))
+
+    vim.cmd("Telescope recall")
+
+    local results = inspect_telescope_results()
+
+    assert.are.equal(#results, 3)
+
+    assert.are.equal(results[1].ordinal, "A:" .. vim.fn.fnamemodify(temp_paths[1], ":p:.") .. ":1")
+    assert.are.equal(results[1].lnum, 1)
+    assert.are.equal(results[1].col, 0)
+
+    assert.are.equal(results[2].ordinal, "B:" .. vim.fn.fnamemodify(temp_paths[1], ":p:.") .. ":10")
+    assert.are.equal(results[2].lnum, 10)
+    assert.are.equal(results[2].col, 0)
+
+    assert.are.equal(results[3].ordinal, "C:" .. vim.fn.fnamemodify(temp_paths[1], ":p:.") .. ":20")
+    assert.are.equal(results[3].lnum, 20)
+    assert.are.equal(results[3].col, 0)
   end)
 end)
