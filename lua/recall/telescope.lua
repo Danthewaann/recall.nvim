@@ -20,7 +20,7 @@ M.extension = function(opts)
     local _, lnum, _ = unpack(entry.value.info.pos)
     return entry_layout({
       { config.opts.sign, config.opts.sign_highlight },
-      entry.value.char .. ":" .. vim.fn.fnamemodify(entry.value.info.file, ":.")  .. ":" .. lnum,
+      entry.value.char .. ":" .. vim.fn.fnamemodify(entry.value.info.file, ":.") .. ":" .. lnum,
     })
   end
 

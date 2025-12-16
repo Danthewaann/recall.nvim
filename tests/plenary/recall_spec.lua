@@ -188,7 +188,7 @@ describe("Recall", function()
 
     vim.cmd("Telescope recall")
 
-    local results = inspect_telescope_results()
+    results = inspect_telescope_results()
 
     assert.are.equal(#results, 3)
 
