@@ -58,6 +58,10 @@ describe("Recall", function()
     set_lines(bufnr, line_count)
 
     local temp_path = luv.os_tmpdir() .. "/nvim-recall-test-" .. luv.hrtime() .. ".txt"
+    if jit and jit.os == "OSX" then
+      -- Need to add this path prefix on macos
+      temp_path = "/private" .. temp_path
+    end
     table.insert(temp_paths, temp_path)
 
     vim.api.nvim_buf_set_name(bufnr, temp_path)
@@ -165,15 +169,15 @@ describe("Recall", function()
 
     assert.are.equal(#results, 3)
 
-    assert.are.equal(results[1].ordinal, "A")
+    assert.are.equal(results[1].ordinal, "A:" .. temp_paths[1] .. ":1")
     assert.are.equal(results[1].lnum, 1)
     assert.are.equal(results[1].col, 0)
 
-    assert.are.equal(results[2].ordinal, "B")
+    assert.are.equal(results[2].ordinal, "B:" .. temp_paths[1] .. ":10")
     assert.are.equal(results[2].lnum, 10)
     assert.are.equal(results[2].col, 0)
 
-    assert.are.equal(results[3].ordinal, "C")
+    assert.are.equal(results[3].ordinal, "C:" .. temp_paths[1] .. ":20")
     assert.are.equal(results[3].lnum, 20)
     assert.are.equal(results[3].col, 0)
   end)
